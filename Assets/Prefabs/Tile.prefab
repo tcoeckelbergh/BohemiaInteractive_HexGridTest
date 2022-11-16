@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: -712867881090628183}
   m_Layer: 6
   m_Name: Tile
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,12 +133,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fiveLivesColor: {r: 0.04705883, g: 0.654902, b: 0.5372549, a: 1}
-  fourLivesColor: {r: 0.56078434, g: 0.8196079, b: 0.30980393, a: 1}
-  threeLivesColor: {r: 0.8078432, g: 0.9058824, b: 0.25490198, a: 1}
-  twoLivesColor: {r: 0.9960785, g: 0.9568628, b: 0.27058825, a: 1}
+  fourLivesColor: {r: 0.2689747, g: 0.6886792, b: 0.4213755, a: 1}
+  threeLivesColor: {r: 0.450267, g: 0.8773585, b: 0.50940275, a: 1}
+  twoLivesColor: {r: 0.6827303, g: 0.9433962, b: 0.6799573, a: 1}
   oneLivesColor: {r: 1, g: 1, b: 1, a: 1}
   lives: 5
-  lifeTime: 1
+  lifeTime: 0.8
   timer: 0
 --- !u!60 &2207956879376569723
 PolygonCollider2D:
