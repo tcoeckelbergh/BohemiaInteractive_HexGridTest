@@ -2905,6 +2905,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile
       objectReference: {fileID: 0}
+    - target: {fileID: 1761616364448437475, guid: 99e29f41f10129340b41385462225a0b, type: 3}
+      propertyPath: lifeTime
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 3246120792361271720, guid: 99e29f41f10129340b41385462225a0b, type: 3}
       propertyPath: m_RootOrder
       value: 0

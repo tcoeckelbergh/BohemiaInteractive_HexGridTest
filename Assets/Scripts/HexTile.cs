@@ -17,12 +17,15 @@ public class HexTile : MonoBehaviour
 
     private SpriteRenderer sr;
     private bool isCollidingWithPlayer = false;
+    private bool isLosingLife = false;
+    private Animator anim;
 
     private void Awake()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         sr.color = GetTileColor(lives);
         drainColor = oneLivesColor;
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -33,14 +36,10 @@ public class HexTile : MonoBehaviour
         }
         else
         {
-            if (isCollidingWithPlayer)
+            if (isCollidingWithPlayer && !isLosingLife)
             {
-                timer += Time.deltaTime;
-                if (timer >= lifeTime)
-                {
-                    LoseLife();
-                    timer -= lifeTime;
-                }
+                isLosingLife = true;
+                Invoke("LoseLife", 1f);
             }
         }
         
@@ -65,7 +64,9 @@ public class HexTile : MonoBehaviour
     private void LoseLife()
     {
         lives--;
+        anim.SetTrigger("Pulse");
         sr.color = GetTileColor(lives);
+        isLosingLife = false;
     }
 
     private void FadeoutTile()
