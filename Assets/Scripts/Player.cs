@@ -14,11 +14,13 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private int nrCollidingTiles = 0;
     private Animator anim;
+    private SpriteRenderer[] srs;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        srs = GetComponentsInChildren<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -52,13 +54,18 @@ public class Player : MonoBehaviour
             nrCollidingTiles--;
             if (nrCollidingTiles <= 0)
             {
-                KillPlayer();
+                InitiatePlayerDeath();
             }
         }
     }
-    private void KillPlayer()
+    private void InitiatePlayerDeath()
     {
         anim.SetTrigger("Fall");
+        foreach(SpriteRenderer sr in srs)
+        {
+            sr.sortingLayerName = "Default";
+        }
+        
         Invoke("Cleanup", 1f);
     }
 
