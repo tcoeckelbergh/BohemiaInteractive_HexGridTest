@@ -5,11 +5,6 @@ using UnityEditor;
 
 public class GridSnappingWindow : EditorWindow
 {
-    string myString = "Hello World";
-    bool groupEnabled;
-    bool myBool = true;
-    float myFloat = 1.23f;
-
     HexTile.HexTileType type;
 
     // Add menu named "My Window" to the Window menu
@@ -23,25 +18,89 @@ public class GridSnappingWindow : EditorWindow
 
     void OnGUI()
     {
-        // Selected Tile 
-        if (Selection.activeGameObject != null)
+        // Selected Tiles
+        if (Selection.gameObjects != null)
         {
-            if (Selection.activeGameObject.tag == "Tile")
-            {
-                GUILayout.Label("Selected Tile", EditorStyles.boldLabel);
-                EditorGUILayout.ColorField(Selection.activeGameObject.GetComponentInChildren<SpriteRenderer>().color);
-                type = (HexTile.HexTileType)EditorGUILayout.EnumPopup("HexTileType: ", type);
+            int counter1 = 0;
+            int counter2 = 0;
+            int counter3 = 0;
+            int counter4 = 0;
+            int counter5 = 0;
 
-                if (GUILayout.Button("UPDATE"))
+            GUILayout.Label("Selected Tiles", EditorStyles.boldLabel);
+            foreach (var obj in Selection.gameObjects)
+            {
+                if (obj.tag == "Tile")
                 {
-                    Selection.activeGameObject.GetComponent<HexTile>().UpdateType(type);
+                    switch(obj.GetComponent<HexTile>().hexType)
+                    {
+                        case HexTile.HexTileType.one:
+                            counter1++;
+                            break;
+                        case HexTile.HexTileType.two:
+                            counter2++;
+                            break;
+                        case HexTile.HexTileType.three:
+                            counter3++;
+                            break;
+                        case HexTile.HexTileType.four:
+                            counter4++;
+                            break;
+                        case HexTile.HexTileType.five:
+                            counter5++;
+                            break;
+                    }
+                    //EditorGUILayout.EnumPopup(obj.GetComponent<HexTile>().hexType);
                 }
             }
-            else
+
+            if (counter1 > 0)
             {
-                GUILayout.Label("No Tile selected", EditorStyles.boldLabel);
-                
+                GUILayout.Label(counter1 + " times", EditorStyles.boldLabel);
+                EditorGUILayout.EnumPopup(HexTile.HexTileType.one);
             }
+            
+            if (counter2 > 0)
+            {
+                GUILayout.Label(counter2 + " times", EditorStyles.boldLabel);
+                EditorGUILayout.EnumPopup(HexTile.HexTileType.two);
+            }
+            
+            if (counter3 > 0)
+            {
+                GUILayout.Label(counter3 + " times", EditorStyles.boldLabel);
+                EditorGUILayout.EnumPopup(HexTile.HexTileType.three);
+            }
+
+            if (counter4 > 0)
+            {
+                GUILayout.Label(counter4 + " times", EditorStyles.boldLabel);
+                EditorGUILayout.EnumPopup(HexTile.HexTileType.four);
+            }
+          
+            if (counter5 > 0)
+            {
+                GUILayout.Label(counter5 + " times", EditorStyles.boldLabel);
+                EditorGUILayout.EnumPopup(HexTile.HexTileType.five);
+            }
+
+            type = (HexTile.HexTileType)EditorGUILayout.EnumPopup("Select new HexTileType: ", type);
+            if (GUILayout.Button("UPDATE"))
+            {
+                foreach (var obj in Selection.gameObjects)
+                {
+                    if (obj.tag == "Tile")
+                    {
+                        Debug.Log("LOG - Setting all selected tiles to " + type + " with # lives being " + (int)type);
+                        obj.GetComponent<HexTile>().UpdateType(type);
+                    }
+                }  
+            }
+        }
+        else
+        {
+            GUILayout.Label("No Tile selected", EditorStyles.boldLabel);
+
         }
 
         GUILayout.Space(20);

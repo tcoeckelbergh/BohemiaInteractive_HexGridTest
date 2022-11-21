@@ -17,11 +17,11 @@ public class HexTile : MonoBehaviour
     {
         get;
         private set;
-    } = HexTileType.five;
+    }
 
     private Color drainColor = Color.white;
 
-    [SerializeField] private int lives = 5;
+    private int lives = 5;
     [SerializeField] private float lifeTime = 1f;
     [SerializeField] private float timer = 0f;
     [SerializeField] private HexTileColors hexTileColors;
@@ -33,6 +33,8 @@ public class HexTile : MonoBehaviour
 
     private void Awake()
     {
+        hexType = (HexTileType)lives;
+
         if (sr == null) sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
@@ -75,7 +77,13 @@ public class HexTile : MonoBehaviour
     public void UpdateType(HexTileType type)
     {
         hexType = type;
+        UpdateLives();
         UpdateColor();
+    }
+
+    private void UpdateLives()
+    {
+        lives = (int)hexType;
     }
 
     private void UpdateColor()
@@ -91,7 +99,8 @@ public class HexTile : MonoBehaviour
 
     private void Reset()
     {
-        lives--;
+        hexType--;
+        UpdateLives();
         UpdateColor();
         Invoke("LoseProtection", 0.5f);
     }
