@@ -18,9 +18,10 @@ public class GridSnappingWindow : EditorWindow
 
     void OnGUI()
     {
-        // Selected Tiles
+        #region Changing HexTileType of one or multiple tiles
         if (Selection.gameObjects != null)
         {
+            // Counters to display the number of selected objects per HexTileType (1-5)
             int counter1 = 0;
             int counter2 = 0;
             int counter3 = 0;
@@ -28,6 +29,8 @@ public class GridSnappingWindow : EditorWindow
             int counter5 = 0;
 
             GUILayout.Label("Selected Tiles", EditorStyles.boldLabel);
+
+            // Loop over each object and increment the appropriate counter
             foreach (var obj in Selection.gameObjects)
             {
                 if (obj.tag == "Tile")
@@ -50,10 +53,10 @@ public class GridSnappingWindow : EditorWindow
                             counter5++;
                             break;
                     }
-                    //EditorGUILayout.EnumPopup(obj.GetComponent<HexTile>().hexType);
                 }
             }
 
+            // Display all counters with their associated HexTileType
             if (counter1 > 0)
             {
                 GUILayout.Label(counter1 + " times", EditorStyles.boldLabel);
@@ -84,6 +87,7 @@ public class GridSnappingWindow : EditorWindow
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.five);
             }
 
+            // Provide a choice menu to change the HexTileType of all Tiles selected to the new HexTileType chosen
             type = (HexTile.HexTileType)EditorGUILayout.EnumPopup("Select new HexTileType: ", type);
             if (GUILayout.Button("UPDATE"))
             {
@@ -103,15 +107,17 @@ public class GridSnappingWindow : EditorWindow
             GUILayout.Label("No Tile selected", EditorStyles.boldLabel);
 
         }
+        #endregion
 
         GUILayout.Space(20);
 
-        // Snapping all tiles
+        #region Snap All Tiles to closest grid position
         GUILayout.Label("Press button to snap all hexTiles to closest grid position", EditorStyles.boldLabel);
         if (GUILayout.Button("SNAP"))
         {
             RunGridSnapping();
         }
+        #endregion
     }
 
     void RunGridSnapping()

@@ -14,9 +14,7 @@ public class HexTile : MonoBehaviour
         five = 5
     }
 
-    [SerializeField]
-    private HexTileType hexType = HexTileType.five;
-
+    [SerializeField] private HexTileType hexType = HexTileType.five;
     public HexTileType HexType
     {
         get
@@ -25,13 +23,10 @@ public class HexTile : MonoBehaviour
         }
     }
 
-    private Color drainColor = Color.white;
-
-    [SerializeField] private float lifeTime = 1f;
-    [SerializeField] private float timer = 0f;
     [SerializeField] private HexTileColors hexTileColors;
     [SerializeField] private SpriteRenderer sr;
 
+    private Color drainColor = Color.white;
     private bool isCollidingWithPlayer = false;
     private bool isLosingLife = false;
     private Animator anim;
