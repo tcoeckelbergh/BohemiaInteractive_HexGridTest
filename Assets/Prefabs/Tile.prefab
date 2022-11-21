@@ -132,14 +132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128b92add72101846b5d76cb03d4a243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fiveLivesColor: {r: 0.04705883, g: 0.654902, b: 0.5372549, a: 1}
-  fourLivesColor: {r: 0.2689747, g: 0.6886792, b: 0.4213755, a: 1}
-  threeLivesColor: {r: 0.450267, g: 0.8773585, b: 0.50940275, a: 1}
-  twoLivesColor: {r: 0.6827303, g: 0.9433962, b: 0.6799573, a: 1}
-  oneLivesColor: {r: 1, g: 1, b: 1, a: 1}
   lives: 5
   lifeTime: 0.8
   timer: 0
+  hexTileColors: {fileID: 11400000, guid: 67cc28225d229fc428353fc96fe9461d, type: 2}
+  sr: {fileID: 8390780534051542712}
 --- !u!60 &2207956879376569723
 PolygonCollider2D:
   m_ObjectHideFlags: 0

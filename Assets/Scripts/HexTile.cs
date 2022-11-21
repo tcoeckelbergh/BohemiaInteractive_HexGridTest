@@ -4,30 +4,39 @@ using UnityEngine;
 
 public class HexTile : MonoBehaviour
 {
-    [SerializeField] private Color fiveLivesColor;
-    [SerializeField] private Color fourLivesColor;
-    [SerializeField] private Color threeLivesColor;
-    [SerializeField] private Color twoLivesColor;
-    [SerializeField] private Color oneLivesColor;
-    private Color drainColor;
+    public enum HexTileType
+    {
+        one = 1,
+        two = 2,
+        three = 3,
+        four = 4,
+        five = 5
+    }
+
+    public HexTileType hexType
+    {
+        get;
+        private set;
+    } = HexTileType.five;
+
+    private Color drainColor = Color.white;
 
     [SerializeField] private int lives = 5;
     [SerializeField] private float lifeTime = 1f;
     [SerializeField] private float timer = 0f;
+    [SerializeField] private HexTileColors hexTileColors;
+    [SerializeField] private SpriteRenderer sr;
 
-    private SpriteRenderer sr;
     private bool isCollidingWithPlayer = false;
     private bool isLosingLife = false;
     private Animator anim;
 
-   
-
     private void Awake()
     {
-        sr = GetComponentInChildren<SpriteRenderer>();
-        sr.color = GetTileColor(lives);
-        drainColor = oneLivesColor;
+        if (sr == null) sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        UpdateColor();
     }
 
     private void Update()
@@ -63,6 +72,17 @@ public class HexTile : MonoBehaviour
         }
     }
 
+    public void UpdateType(HexTileType type)
+    {
+        hexType = type;
+        UpdateColor();
+    }
+
+    private void UpdateColor()
+    {
+        sr.color = hexTileColors.GetColor(hexType);
+    }
+
     private void LoseLife()
     {
         anim.SetTrigger("Pulse");
@@ -72,7 +92,7 @@ public class HexTile : MonoBehaviour
     private void Reset()
     {
         lives--;
-        sr.color = GetTileColor(lives);
+        UpdateColor();
         Invoke("LoseProtection", 0.5f);
     }
 
@@ -92,24 +112,5 @@ public class HexTile : MonoBehaviour
         }
 
         sr.color = drainColor;
-    }
-
-    private Color GetTileColor(int lives)
-    {
-        switch (lives)
-        {
-            case 5:
-                return fiveLivesColor;
-            case 4:
-                return fourLivesColor;
-            case 3:
-                return threeLivesColor;
-            case 2:
-                return twoLivesColor;
-            case 1:
-                return oneLivesColor;
-            default:
-                return oneLivesColor;
-        }
     }
 }
