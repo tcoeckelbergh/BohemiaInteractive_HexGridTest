@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class HexTile : MonoBehaviour
 {
     public enum HexTileType
@@ -13,15 +14,19 @@ public class HexTile : MonoBehaviour
         five = 5
     }
 
-    public HexTileType hexType
+    [SerializeField]
+    private HexTileType hexType = HexTileType.five;
+
+    public HexTileType HexType
     {
-        get;
-        private set;
+        get
+        {
+            return hexType;
+        }
     }
 
     private Color drainColor = Color.white;
 
-    private int lives = 5;
     [SerializeField] private float lifeTime = 1f;
     [SerializeField] private float timer = 0f;
     [SerializeField] private HexTileColors hexTileColors;
@@ -33,7 +38,7 @@ public class HexTile : MonoBehaviour
 
     private void Awake()
     {
-        hexType = (HexTileType)lives;
+        //hexType = (HexTileType)lives;
 
         if (sr == null) sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -43,7 +48,7 @@ public class HexTile : MonoBehaviour
 
     private void Update()
     {
-        if (lives <= 0)
+        if ((int)hexType <= 0)
         {
             FadeoutTile();
         }
@@ -77,13 +82,7 @@ public class HexTile : MonoBehaviour
     public void UpdateType(HexTileType type)
     {
         hexType = type;
-        UpdateLives();
         UpdateColor();
-    }
-
-    private void UpdateLives()
-    {
-        lives = (int)hexType;
     }
 
     private void UpdateColor()
@@ -100,7 +99,6 @@ public class HexTile : MonoBehaviour
     private void Reset()
     {
         hexType--;
-        UpdateLives();
         UpdateColor();
         Invoke("LoseProtection", 0.5f);
     }

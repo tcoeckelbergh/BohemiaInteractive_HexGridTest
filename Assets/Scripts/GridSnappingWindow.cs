@@ -32,7 +32,7 @@ public class GridSnappingWindow : EditorWindow
             {
                 if (obj.tag == "Tile")
                 {
-                    switch(obj.GetComponent<HexTile>().hexType)
+                    switch(obj.GetComponent<HexTile>().HexType)
                     {
                         case HexTile.HexTileType.one:
                             counter1++;
@@ -93,6 +93,7 @@ public class GridSnappingWindow : EditorWindow
                     {
                         Debug.Log("LOG - Setting all selected tiles to " + type + " with # lives being " + (int)type);
                         obj.GetComponent<HexTile>().UpdateType(type);
+                        EditorUtility.SetDirty(obj.GetComponent<HexTile>());
                     }
                 }  
             }
