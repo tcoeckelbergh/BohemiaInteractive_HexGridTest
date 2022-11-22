@@ -10,19 +10,19 @@ public class HexGrid : MonoBehaviour
 
     private void Awake()
     {
-        CalculateCoordinatePositions(1.152f, 10, 10);
+        //CalculateCoordinatePositions(1.152f, 10, 10);
 
-        foreach (Vector2 v in coordinates)
-        {
-            Debug.Log("(" + v.x + ", " + v.y + ")");
-        }
+        //foreach (Vector2 v in coordinates)
+        //{
+        //    Debug.Log("(" + v.x + ", " + v.y + ")");
+        //}
     }
 
     public Vector2 CalculateClosestGridPosition(Vector2 pos)
     {
         //  Distance formula -> d=sqrt((x2 – x1)² + (y2 – y1)²)
         // Quick and dirty comparison to find closest point (not actual distance, not relevant here)
-        Vector2 closestPointInGrid = Vector2.zero;
+        Vector2 closestPointInGrid = new Vector2(Mathf.Infinity, Mathf.Infinity);
         float smallestRelativeDistance = Mathf.Infinity;
 
         foreach (Vector2 v in coordinates)
@@ -35,8 +35,7 @@ public class HexGrid : MonoBehaviour
             }
         }
 
-
-        return Vector2.zero;
+        return closestPointInGrid;
     }
 
     public void CalculateCoordinatePositions(float size, int rows, int columns)
@@ -45,11 +44,22 @@ public class HexGrid : MonoBehaviour
         // The x-coordinate increases with 3/2 * size of the hexagon, size being the distance of the center to the left- or right-most point
         // the y-coordinate increases with Sqrt(3) * size
 
-        for (int i = 0; i < rows; i++)
+        float yOffset = 0;
+
+        for (int i = 0; i < columns; i++)
         {
-            for (int j = 0; j < columns; j++)
+            for (int j = 0; j < rows; j++)
             {
-                Vector2 pos = new Vector2(i * size * 3/2, j * size * Mathf.Sqrt(3));
+                if (j % 2 == 1) // if j = odd
+                {
+                    yOffset = size * Mathf.Sqrt(3) / 2;
+                }
+                else
+                {
+                    yOffset = 0;
+                }
+
+                Vector2 pos = new Vector2((j * size * 3/2), (i * size * Mathf.Sqrt(3)) + yOffset);
                 coordinates.Add(pos);
             }
         }
