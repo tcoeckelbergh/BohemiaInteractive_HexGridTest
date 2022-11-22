@@ -129,12 +129,13 @@ public class GridSnappingWindow : EditorWindow
         GUILayout.Space(20);
 
         #region Snap All Tiles to closest grid position
+
+        HexGrid hexGrid = GameObject.FindObjectOfType<HexGrid>();
+        hexGrid.CalculateCoordinatePositions(1.152f, 20, 20);
+
         GUILayout.Label("Press button to snap all hexTiles to closest grid position", EditorStyles.boldLabel);
         if (GUILayout.Button("SNAP"))
         {
-            HexGrid hexGrid = GameObject.FindObjectOfType<HexGrid>();
-            hexGrid.CalculateCoordinatePositions(1.152f, 20, 20);
-
             var tileList = GameObject.FindGameObjectsWithTag("Tile");
             foreach (GameObject tile in tileList)
             {
@@ -155,10 +156,7 @@ public class GridSnappingWindow : EditorWindow
             {
                 if (checkNeighbours)
                 {
-                    HexGrid hexGrid2 = GameObject.FindObjectOfType<HexGrid>();
-                    hexGrid2.CalculateCoordinatePositions(1.152f, 20, 20);
-
-                    var neighbours = hexGrid2.GetHexTileNeighbours(1.152f, Selection.activeGameObject.transform.position);
+                    var neighbours = hexGrid.GetHexTileNeighbours(1.152f, Selection.activeGameObject.transform.position);
                     foreach (var n in neighbours)
                     {
                         EditorGUILayout.BeginHorizontal();
