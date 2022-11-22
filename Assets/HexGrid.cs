@@ -5,19 +5,7 @@ using System.Linq;
 
 public class HexGrid : MonoBehaviour
 {
-    private List<HexTile> hexTiles;
-
     private List<Vector2> coordinates = new List<Vector2>();
-
-    private void Awake()
-    {
-        //CalculateCoordinatePositions(1.152f, 10, 10);
-
-        //foreach (Vector2 v in coordinates)
-        //{
-        //    Debug.Log("(" + v.x + ", " + v.y + ")");
-        //}
-    }
 
     public Vector2 CalculateClosestGridPosition(Vector2 pos)
     {
