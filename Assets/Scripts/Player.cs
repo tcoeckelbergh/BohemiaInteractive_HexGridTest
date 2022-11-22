@@ -71,6 +71,7 @@ public class Player : MonoBehaviour
 
     private void Cleanup()
     {
+        GameObject.FindObjectOfType<GameManager>().OnPlayerDeath(this.gameObject.name);
         Destroy(this.gameObject);
     }
 }

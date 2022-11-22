@@ -26,7 +26,7 @@ public class HexTileColors : ScriptableObject
             case HexTile.HexTileType.one:
                 return oneLivesColor;
             default:
-                Debug.LogWarning("Unbound HexFileType provided to GetColor(type): " + type);
+                //Debug.LogWarning("Unbound HexFileType provided to GetColor(type): " + type);
                 return Color.clear;
         }
     }
