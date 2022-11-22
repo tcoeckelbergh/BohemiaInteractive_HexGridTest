@@ -6,8 +6,8 @@ using UnityEditor;
 public class GridSnappingWindow : EditorWindow
 {
     HexTile.HexTileType type;
+    bool checkNeighbours = false;
 
-    // Add menu named "My Window" to the Window menu
     [MenuItem("Window/GridSnappingWindow")]
     static void Init()
     {
@@ -125,18 +125,30 @@ public class GridSnappingWindow : EditorWindow
                 tile.transform.position = new Vector3(closestGridPos.x, closestGridPos.y, 0);
                 EditorUtility.SetDirty(tile.transform);
             }
-
-            //RunGridSnapping();
         }
         #endregion
-    }
 
-    void RunGridSnapping()
-    {
-        
+        GUILayout.Space(20);
 
-        // For each tile, calculate closest grid position
+        checkNeighbours = GUILayout.Toggle(checkNeighbours, "Display Neighbours");
 
-        // If that position is taken, move the tile to the FRONT-most sorting layer and color it red + throw a warning dialog
+        if (Selection.gameObjects.Length > 0)
+        {
+            if (Selection.activeGameObject.tag == "Tile")
+            {
+                if (checkNeighbours)
+                {
+                    HexGrid hexGrid2 = GameObject.FindObjectOfType<HexGrid>();
+                    hexGrid2.CalculateCoordinatePositions(1.152f, 20, 20);
+
+                    var neighbours = hexGrid2.GetHexTileNeighbours(1.152f, Selection.activeGameObject.transform.position);
+                    foreach (var n in neighbours)
+                    {
+                        if (n.Value != null)
+                            EditorGUILayout.EnumPopup(n.Value.HexType);
+                    }
+                }
+            }
+        }  
     }
 }
