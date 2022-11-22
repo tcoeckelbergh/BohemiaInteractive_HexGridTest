@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject blurImage;
     [SerializeField] GameObject winText;
     [SerializeField] GameObject replayText;
+    [SerializeField] GameObject canvas;
+    bool gameOver = false;
 
     // Update is called once per frame
     void Update()
@@ -22,9 +24,14 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDeath(string name)
     {
-        blurImage.SetActive(true);
-        winText.GetComponent<TextMeshProUGUI>().text = name + " has died!";
-        winText.SetActive(true);
-        replayText.SetActive(true);
+        if (!gameOver)
+        {
+            gameOver = true;
+            canvas.SetActive(true);
+            blurImage.SetActive(true);
+            winText.GetComponent<TextMeshProUGUI>().text = name + " has died!";
+            winText.SetActive(true);
+            replayText.SetActive(true);
+        }  
     }
 }

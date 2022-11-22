@@ -1243,7 +1243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1761616364448437475, guid: 99e29f41f10129340b41385462225a0b, type: 3}
       propertyPath: hexType
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2009798383926240642, guid: 99e29f41f10129340b41385462225a0b, type: 3}
       propertyPath: m_RootOrder
@@ -1331,15 +1331,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8390780534051542712, guid: 99e29f41f10129340b41385462225a0b, type: 3}
       propertyPath: m_Color.b
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8390780534051542712, guid: 99e29f41f10129340b41385462225a0b, type: 3}
       propertyPath: m_Color.g
-      value: 0.654902
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8390780534051542712, guid: 99e29f41f10129340b41385462225a0b, type: 3}
       propertyPath: m_Color.r
-      value: 0.047058824
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99e29f41f10129340b41385462225a0b, type: 3}
@@ -1686,7 +1686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &716239786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2047,6 +2047,7 @@ MonoBehaviour:
   blurImage: {fileID: 118568748}
   winText: {fileID: 1755290190}
   replayText: {fileID: 1981750826}
+  canvas: {fileID: 716239785}
 --- !u!4 &742434252
 Transform:
   m_ObjectHideFlags: 0
