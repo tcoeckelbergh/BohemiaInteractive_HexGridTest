@@ -7,6 +7,8 @@ public class GridSnappingWindow : EditorWindow
 {
     HexTile.HexTileType type;
     bool checkNeighbours = false;
+    HexGrid hexGrid;
+    HexTileColors hexColors;
 
     [MenuItem("Window/GridSnappingWindow")]
     static void Init()
@@ -18,6 +20,18 @@ public class GridSnappingWindow : EditorWindow
 
     void OnGUI()
     {
+        #region Initialization
+        if (!hexGrid)
+        {
+            hexGrid = GameObject.FindObjectOfType<HexGrid>();
+            hexGrid.CalculateCoordinatePositions(1.152f, 20, 20);
+        }
+        if (!hexColors)
+        {
+            hexColors = GameObject.FindObjectOfType<GameResources>().HexTileColors;
+        }
+        #endregion
+
         #region Changing HexTileType of one or multiple tiles
         if (Selection.gameObjects != null)
         {
@@ -60,52 +74,62 @@ public class GridSnappingWindow : EditorWindow
             if (counter1 > 0)
             {
                 EditorGUILayout.BeginHorizontal();
-                GUILayout.Label(counter1 + " times", EditorStyles.boldLabel);
+                GUILayout.Label(counter1 + "x", EditorStyles.boldLabel);
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.one);
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.ColorField(hexColors.oneLivesColor);
                 EditorGUILayout.EndHorizontal();
             }
             
             if (counter2 > 0)
             {
                 EditorGUILayout.BeginHorizontal();
-                GUILayout.Label(counter2 + " times", EditorStyles.boldLabel);
+                GUILayout.Label(counter2 + "x", EditorStyles.boldLabel);
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.two);
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.ColorField(hexColors.twoLivesColor);
                 EditorGUILayout.EndHorizontal();
             }
             
             if (counter3 > 0)
             {
                 EditorGUILayout.BeginHorizontal();
-                GUILayout.Label(counter3 + " times", EditorStyles.boldLabel);
+                GUILayout.Label(counter3 + "x", EditorStyles.boldLabel);
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.three);
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.ColorField(hexColors.threeLivesColor);
                 EditorGUILayout.EndHorizontal();
             }
 
             if (counter4 > 0)
             {
                 EditorGUILayout.BeginHorizontal();
-                GUILayout.Label(counter4 + " times", EditorStyles.boldLabel);
+                GUILayout.Label(counter4 + "x", EditorStyles.boldLabel);
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.four);
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.ColorField(hexColors.fourLivesColor);
                 EditorGUILayout.EndHorizontal();
             }
           
             if (counter5 > 0)
             {
                 EditorGUILayout.BeginHorizontal();
-                GUILayout.Label(counter5 + " times", EditorStyles.boldLabel);
+                GUILayout.Label(counter5 + "x", EditorStyles.boldLabel);
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.five);
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.ColorField(hexColors.fiveLivesColor);
                 EditorGUILayout.EndHorizontal();
             }
 
             GUILayout.Space(10);
 
             // Provide a choice menu to change the HexTileType of all Tiles selected to the new HexTileType chosen
-            type = (HexTile.HexTileType)EditorGUILayout.EnumPopup("Select new HexTileType: ", type);
+            type = (HexTile.HexTileType)EditorGUILayout.EnumPopup("Change selection into: ", type);
             if (GUILayout.Button("UPDATE"))
             {
                 foreach (var obj in Selection.gameObjects)
@@ -129,9 +153,6 @@ public class GridSnappingWindow : EditorWindow
         GUILayout.Space(20);
 
         #region Snap All Tiles to closest grid position
-
-        HexGrid hexGrid = GameObject.FindObjectOfType<HexGrid>();
-        hexGrid.CalculateCoordinatePositions(1.152f, 20, 20);
 
         GUILayout.Label("Press button to snap all hexTiles to closest grid position", EditorStyles.boldLabel);
         if (GUILayout.Button("SNAP"))
