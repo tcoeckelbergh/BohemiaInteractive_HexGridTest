@@ -28,7 +28,7 @@ public class GridSnappingWindow : EditorWindow
             int counter4 = 0;
             int counter5 = 0;
 
-            GUILayout.Label("Selected Tiles", EditorStyles.boldLabel);
+            GUILayout.Label("Currently selected tiles", EditorStyles.boldLabel);
 
             // Loop over each object and increment the appropriate counter
             foreach (var obj in Selection.gameObjects)
@@ -59,33 +59,50 @@ public class GridSnappingWindow : EditorWindow
             // Display all counters with their associated HexTileType
             if (counter1 > 0)
             {
+                EditorGUILayout.BeginHorizontal();
                 GUILayout.Label(counter1 + " times", EditorStyles.boldLabel);
+                GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.one);
+                EditorGUILayout.EndHorizontal();
             }
             
             if (counter2 > 0)
             {
+                EditorGUILayout.BeginHorizontal();
                 GUILayout.Label(counter2 + " times", EditorStyles.boldLabel);
+                GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.two);
+                EditorGUILayout.EndHorizontal();
             }
             
             if (counter3 > 0)
             {
+                EditorGUILayout.BeginHorizontal();
                 GUILayout.Label(counter3 + " times", EditorStyles.boldLabel);
+                GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.three);
+                EditorGUILayout.EndHorizontal();
             }
 
             if (counter4 > 0)
             {
+                EditorGUILayout.BeginHorizontal();
                 GUILayout.Label(counter4 + " times", EditorStyles.boldLabel);
+                GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.four);
+                EditorGUILayout.EndHorizontal();
             }
           
             if (counter5 > 0)
             {
+                EditorGUILayout.BeginHorizontal();
                 GUILayout.Label(counter5 + " times", EditorStyles.boldLabel);
+                GUILayout.FlexibleSpace();
                 EditorGUILayout.EnumPopup(HexTile.HexTileType.five);
+                EditorGUILayout.EndHorizontal();
             }
+
+            GUILayout.Space(10);
 
             // Provide a choice menu to change the HexTileType of all Tiles selected to the new HexTileType chosen
             type = (HexTile.HexTileType)EditorGUILayout.EnumPopup("Select new HexTileType: ", type);
@@ -130,7 +147,7 @@ public class GridSnappingWindow : EditorWindow
 
         GUILayout.Space(20);
 
-        checkNeighbours = GUILayout.Toggle(checkNeighbours, "Display Neighbours");
+        checkNeighbours = GUILayout.Toggle(checkNeighbours, "Display Neighbours of the last selected tile");
 
         if (Selection.gameObjects.Length > 0)
         {
@@ -144,8 +161,12 @@ public class GridSnappingWindow : EditorWindow
                     var neighbours = hexGrid2.GetHexTileNeighbours(1.152f, Selection.activeGameObject.transform.position);
                     foreach (var n in neighbours)
                     {
+                        EditorGUILayout.BeginHorizontal();
+                        GUILayout.Label(n.Key);
+                        GUILayout.FlexibleSpace();
                         if (n.Value != null)
                             EditorGUILayout.EnumPopup(n.Value.HexType);
+                        EditorGUILayout.EndHorizontal();
                     }
                 }
             }

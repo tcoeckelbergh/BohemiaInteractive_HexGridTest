@@ -66,31 +66,31 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    public Dictionary<int, HexTile> GetHexTileNeighbours(float size, Vector2 posOriginalTile)
+    public Dictionary<string, HexTile> GetHexTileNeighbours(float size, Vector2 posOriginalTile)
     {
         // Returns a dictionary of neighbours in the following format
         // 0 = top neighbour, 1 = top right neighbour, 2 = bottom right neighbour
         // 3 = bottom neighbour, 4 = bottom left neighbour, 5 = top left neighbour
 
-        Dictionary<int, HexTile> neighbours = new Dictionary<int, HexTile>();
+        Dictionary<string, HexTile> neighbours = new Dictionary<string, HexTile>();
 
         // Top neighbour
-        neighbours.Add(0, GetHexTileAtPosition(new Vector2(posOriginalTile.x, posOriginalTile.y + (size * Mathf.Sqrt(3)))));
+        neighbours.Add("Top-Neighbour", GetHexTileAtPosition(new Vector2(posOriginalTile.x, posOriginalTile.y + (size * Mathf.Sqrt(3)))));
 
         // Top-right neighbour
-        neighbours.Add(1, GetHexTileAtPosition(new Vector2(posOriginalTile.x + (size * 3 / 2), posOriginalTile.y + (size * Mathf.Sqrt(3) / 2))));
+        neighbours.Add("Top-right-Neighbour", GetHexTileAtPosition(new Vector2(posOriginalTile.x + (size * 3 / 2), posOriginalTile.y + (size * Mathf.Sqrt(3) / 2))));
 
         // Bottom-right neighbour
-        neighbours.Add(2, GetHexTileAtPosition(new Vector2(posOriginalTile.x + (size * 3 / 2), posOriginalTile.y - (size * Mathf.Sqrt(3) / 2))));
+        neighbours.Add("Bottom-right-Neighbour", GetHexTileAtPosition(new Vector2(posOriginalTile.x + (size * 3 / 2), posOriginalTile.y - (size * Mathf.Sqrt(3) / 2))));
 
         // Bottom neighbour
-        neighbours.Add(3, GetHexTileAtPosition(new Vector2(posOriginalTile.x, posOriginalTile.y - (size * Mathf.Sqrt(3)))));
+        neighbours.Add("Bottom-Neighbour", GetHexTileAtPosition(new Vector2(posOriginalTile.x, posOriginalTile.y - (size * Mathf.Sqrt(3)))));
 
         // Bottom-left neighbour
-        neighbours.Add(4, GetHexTileAtPosition(new Vector2(posOriginalTile.x - (size * 3 / 2), posOriginalTile.y - (size * Mathf.Sqrt(3) / 2))));
+        neighbours.Add("Bottom-left-Neighbour", GetHexTileAtPosition(new Vector2(posOriginalTile.x - (size * 3 / 2), posOriginalTile.y - (size * Mathf.Sqrt(3) / 2))));
 
         // Top-left neighbour
-        neighbours.Add(5, GetHexTileAtPosition(new Vector2(posOriginalTile.x - (size * 3 / 2), posOriginalTile.y + (size * Mathf.Sqrt(3) / 2))));
+        neighbours.Add("Top-left-Neighbour", GetHexTileAtPosition(new Vector2(posOriginalTile.x - (size * 3 / 2), posOriginalTile.y + (size * Mathf.Sqrt(3) / 2))));
 
         return neighbours;
     }
@@ -109,7 +109,7 @@ public class HexGrid : MonoBehaviour
             return hits[0].gameObject.GetComponent<HexTile>();
         }
 
-        Debug.LogWarning("There overlapping neighbours for (" + position.x + ", " + position.y + ") -> Please take a look.");
+        Debug.LogWarning("There are overlapping neighbours for (" + position.x + ", " + position.y + ") -> Please take a look.");
         return null;
     }
 }
